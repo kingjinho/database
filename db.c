@@ -27,6 +27,11 @@ void print_prompt() {
     printf("db > ");
 }
 
+void close_input_buffer(InputBuffer* input_buffer) {
+    free(input_buffer->buffer);
+    free(input_buffer);
+}
+
 //read line of input
 //lineptr: a pointer to a variable used to point to the buffer containing the read line
 //n: a pointer to the variable used to save the size of allocated buffer
@@ -56,6 +61,7 @@ int main(int argc, char* argv[]) {
         print_prompt();
         read_input(input_buffer);
 
+        //parse and execute command
         if(strcmp(input_buffer->buffer, ".exit") == 0) {
             close_input_buffer(input_buffer);
             exit(EXIT_SUCCESS);
